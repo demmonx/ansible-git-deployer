@@ -1,0 +1,5 @@
+---
+- name: "Remove {{ workspace }} folder"
+  file:
+    path: "{{ workspace }}"
+    state: absent

@@ -1,4 +1,4 @@
 ---
 # tasks files for git deployer
-
+- include_tasks: clear.yml
 - include_tasks: deploy.yml
