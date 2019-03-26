@@ -11,7 +11,7 @@
     mode: 0775
 
 - name: Clone {{ repo }} inside {{ workspace }}
-  shell: git clone "{{ repo }}"
+  shell: git clone "{{ git_repo }}"
   args:
     chdir:  "{{ workspace }}"
 
