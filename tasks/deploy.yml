@@ -5,7 +5,6 @@
     path: "{{ workspace }}"
     recurse: yes
     state: directory
-    become: yes
     owner: nginx
     group: nginx
     mode: 0775
@@ -16,7 +15,7 @@
     chdir:  "{{ workspace }}"
 
 - name: Copy repo content inside {{ workspace }}
-  shell: cp -r "*-master/*" ..
+  shell: cp -r $(basename {{ git_repo }})/* .
   args:
     chdir: "{{ workspace }}"
 
@@ -25,7 +24,12 @@
     path: "{{ workspace }}"
     recurse: yes
     state: directory
-    become: yes
     owner: nginx
     group: nginx
     mode: 0775
+
+- name: "Remove useless folder"
+  shell: rm -r $(basename {{ git_repo }})
+  args:
+    chdir: "{{ workspace }}" 
+    warn: False
