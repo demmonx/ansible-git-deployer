@@ -1,0 +1,31 @@
+---
+
+- name: "Create folder {{ workspace }}"
+  file:
+    path: "{{ workspace }}"
+    recurse: yes
+    state: directory
+    become: yes
+    owner: nginx
+    group: nginx
+    mode: 0775
+
+- name: Clone {{ repo }} inside {{ workspace }}
+  shell: git clone "{{ repo }}"
+  args:
+    chdir:  "{{ workspace }}"
+
+- name: Copy repo content inside {{ workspace }}
+  shell: cp -r "*-master/*" ..
+  args:
+    chdir: "{{ workspace }}"
+
+- name: "Change access right folder {{ workspace }}"
+  file:
+    path: "{{ workspace }}"
+    recurse: yes
+    state: directory
+    become: yes
+    owner: nginx
+    group: nginx
+    mode: 0775
