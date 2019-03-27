@@ -1,7 +1,7 @@
 ---
 - name: Find files w/o adminer
   find:
-    paths: "{{ nginx_folder }}"
+    paths: "{{ web_folder }}"
     patterns: "*"
   exclude: "adminer"
   register: files_to_delete
