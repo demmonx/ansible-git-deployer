@@ -1,35 +1,35 @@
 ---
 
-- name: "Create folder {{ workspace }}"
+- name: "Create folder {{ nginx_folder }}"
   file:
-    path: "{{ workspace }}"
+    path: "{{ nginx_folder }}"
     recurse: yes
     state: directory
-    owner: nginx
-    group: nginx
+    owner: {{ nginx_user }}
+    group: {{ nginx_user }}
     mode: 0775
 
-- name: Clone {{ repo }} inside {{ workspace }}
+- name: Clone {{ repo }} inside {{ nginx_folder }}
   shell: git clone "{{ git_repo }}"
   args:
-    chdir:  "{{ workspace }}"
+    chdir:  "{{ nginx_folder }}"
 
 - name: Get workspace basename
   shell: basename {{ git_repo }}
   register: folder_name
 
-- name: Copy repo content inside {{ workspace }}
+- name: Copy repo content inside {{ nginx_folder }}
   shell: cp -r "{{ folder_name.stdout }}"/* .
   args:
-    chdir: "{{ workspace }}"
+    chdir: "{{ nginx_folder }}"
 
-- name: "Change access right folder {{ workspace }}"
+- name: "Change access right folder {{ nginx_folder }}"
   file:
-    path: "{{ workspace }}"
+    path: "{{ nginx_folder }}"
     recurse: yes
     state: directory
-    owner: nginx
-    group: nginx
+    owner: "{{ nginx_user }}"
+    group: "{{ nginx_user }}"
     mode: 0775
 
 - name: "Remove useless folder"

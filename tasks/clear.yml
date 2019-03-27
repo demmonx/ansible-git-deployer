@@ -1,5 +1,13 @@
 ---
-- name: "Remove {{ workspace }} folder"
+- name: Find files w/o adminer
+  find:
+    paths: "{{ nginx_folder }}"
+    patterns: "*"
+  exclude: "adminer"
+  register: files_to_delete
+
+- name: remove files
   file:
-    path: "{{ workspace }}"
+    path: "{{ item.path }}"
     state: absent
+  with_items: "{{ files_to_delete.files }}"

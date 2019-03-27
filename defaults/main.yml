@@ -1,1 +1,2 @@
-workspace: /var/www/html
+nginx_folder: /var/www/html
+nginx_user: www-data
