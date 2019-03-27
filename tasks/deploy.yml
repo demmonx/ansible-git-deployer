@@ -14,8 +14,12 @@
   args:
     chdir:  "{{ workspace }}"
 
+- name: Get workspace basename
+  shell: basename {{ git_repo }}
+  register: folder_name
+
 - name: Copy repo content inside {{ workspace }}
-  shell: cp -r $(basename {{ git_repo }})/* .
+  shell: cp -r "{{ folder_name.stdout }}"/* .
   args:
     chdir: "{{ workspace }}"
 
@@ -29,7 +33,7 @@
     mode: 0775
 
 - name: "Remove useless folder"
-  shell: rm -r $(basename {{ git_repo }})
-  args:
-    chdir: "{{ workspace }}" 
-    warn: False
+  file:
+    path: "{{ folder_name.stdout }}/*"
+    recurse: yes
+    state: absent
