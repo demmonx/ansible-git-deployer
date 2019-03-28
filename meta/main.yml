@@ -1,5 +1,10 @@
 ---
-dependencies: []
+dependencies:
+  - ansible_role_nginx
+  - ansible_role_php
+  - ansible_role_composer
+  - ansible_role_postgres
+  - ansible_role_postfix
 
 galaxy_info:
   author: demmonx
