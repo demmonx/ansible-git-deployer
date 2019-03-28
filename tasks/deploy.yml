@@ -5,8 +5,8 @@
     path: "{{ web_folder }}"
     recurse: yes
     state: directory
-    owner: {{ webserver_user }}
-    group: {{ webserver_user }}
+    owner: "{{ webserver_user }}"
+    group: "{{ webserver_user }}"
     mode: 0775
 
 - name: Clone {{ repo }} inside {{ web_folder }}
@@ -34,6 +34,5 @@
 
 - name: "Remove useless folder"
   file:
-    path: "{{ folder_name.stdout }}/*"
-    recurse: yes
+    path: "{{ folder_name.stdout }}"
     state: absent
